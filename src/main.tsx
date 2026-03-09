@@ -1,4 +1,3 @@
-import {initializeBlock} from '@airtable/blocks/ui';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App.tsx';
@@ -6,37 +5,46 @@ import './index.css';
 
 /**
  * Airtable extensions only run inside an Airtable Base.
- * This logic handles the environment detection to avoid crashes in the preview.
+ * We use dynamic imports to prevent the Airtable SDK from crashing the app
+ * when running in non-Airtable environments like the AI Studio preview.
  */
-const rootElement = document.getElementById('root');
+async function startApp() {
+    const rootElement = document.getElementById('root');
 
-// Detect if we are running in an Airtable-like environment
-// (Served via localhost:9000 or inside an airtable.com iframe)
-const isAirtable = window.location.hostname === 'localhost' || 
-                  window.location.hostname.includes('airtable.com');
-
-if (isAirtable && !rootElement) {
-    // We are likely in the Airtable frame (no #root element provided by Airtable)
-    try {
-        initializeBlock(() => <App />);
-    } catch (e) {
-        console.error('Failed to initialize Airtable block:', e);
-    }
-} else {
-    // We are in the AI Studio preview or local development
+    // If #root exists, we are in the AI Studio preview or standard web environment
     if (rootElement) {
+        console.log('Running in standard React mode (Preview)');
         ReactDOM.render(
             <React.StrictMode>
                 <App />
             </React.StrictMode>,
             rootElement
         );
-    } else {
-        // Last resort: try initializeBlock if no #root is found
-        try {
-            initializeBlock(() => <App />);
-        } catch (e) {
-            console.warn('Fallback initialization failed:', e);
-        }
+        return;
+    }
+
+    // If no #root, we assume we are in the Airtable extension frame
+    try {
+        console.log('Attempting to initialize Airtable Extension...');
+        // Dynamically import the SDK to avoid environment checks on page load
+        const { initializeBlock } = await import('@airtable/blocks/ui');
+        initializeBlock(() => <App />);
+    } catch (error) {
+        console.error('Failed to initialize Airtable Extension:', error);
+        
+        // Fallback if initializeBlock fails and we still have no root
+        // This shouldn't happen in a normal Airtable environment
+        const fallbackRoot = document.createElement('div');
+        fallbackRoot.id = 'fallback-root';
+        document.body.appendChild(fallbackRoot);
+        
+        ReactDOM.render(
+            <React.StrictMode>
+                <App />
+            </React.StrictMode>,
+            fallbackRoot
+        );
     }
 }
+
+startApp();

@@ -22,14 +22,7 @@ export default function App() {
     
     try {
       const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          timestamp: new Date().toISOString(),
-          triggeredBy: 'Airtable Extension'
-        }),
+        method: 'GET',
       });
 
       if (response.ok) {
@@ -68,7 +61,7 @@ export default function App() {
                 </div>
                 <div>
                   <h3 className="font-medium">Carga de Alergênicos</h3>
-                  <p className="text-xs text-[#9e9e9e]">Sincroniza a lista de alérgenos.</p>
+                  <p className="text-xs text-[#9e9e9e]">Sincroniza a lista de alérgenos, em média 1 min. e 20 seg.</p>
                 </div>
               </div>
             </div>
@@ -123,7 +116,7 @@ export default function App() {
                 </div>
                 <div>
                   <h3 className="font-medium">Carga Full Pratos</h3>
-                  <p className="text-xs text-[#9e9e9e]">Sincronização completa do cardápio.</p>
+                  <p className="text-xs text-[#9e9e9e]">Sincronização completa do cardápio, em média 20 segundos.</p>
                 </div>
               </div>
             </div>
