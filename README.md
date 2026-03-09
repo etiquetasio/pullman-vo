@@ -13,6 +13,7 @@ Esta é uma extensão customizada para o Airtable que permite disparar webhooks 
 2. No Airtable, vá em **Extensions** -> **Add an extension**.
 3. Selecione **Build a custom extension**.
 4. Siga as instruções do Airtable CLI para vincular este código à sua extensão.
+   - O projeto já está configurado com `initializeBlock` do SDK do Airtable para garantir a inicialização correta.
    - Você precisará rodar `npm install` e `block run` ou `block release`.
 
 ## Configuração
