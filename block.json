@@ -1,0 +1,5 @@
+{
+  "name": "Carga VO",
+  "id": "carga-vo",
+  "frontendEntry": "src/main.tsx"
+}

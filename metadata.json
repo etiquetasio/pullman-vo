@@ -1,0 +1,5 @@
+{
+  "name": "Airtable Carga Extension",
+  "description": "Extensão para Airtable para realizar carga de alergênicos e pratos via webhooks n8n.",
+  "requestFramePermissions": []
+}

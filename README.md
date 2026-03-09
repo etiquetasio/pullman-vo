@@ -1,11 +1,20 @@
-<div align="center">
+# Airtable Carga Extension
 
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+Esta é uma extensão customizada para o Airtable que permite disparar webhooks no n8n para sincronização de dados.
 
-  <h1>Built with AI Studio</h2>
+## Funcionalidades
 
-  <p>The fastest path from prompt to production with Gemini.</p>
+- **Carga de Alergênicos**: Dispara o webhook `https://n8n-railway.etiquetas.io/webhook/alergenicos-vo`.
+- **Carga Full Pratos**: Dispara o webhook `https://n8n-railway.etiquetas.io/webhook/carga-full-vo`.
 
-  <a href="https://aistudio.google.com/apps">Start building</a>
+## Como Instalar no Airtable
 
-</div>
+1. Publique este repositório no seu GitHub.
+2. No Airtable, vá em **Extensions** -> **Add an extension**.
+3. Selecione **Build a custom extension**.
+4. Siga as instruções do Airtable CLI para vincular este código à sua extensão.
+   - Você precisará rodar `npm install` e `block run` ou `block release`.
+
+## Configuração
+
+Os URLs dos webhooks estão configurados diretamente no arquivo `src/App.tsx`.
